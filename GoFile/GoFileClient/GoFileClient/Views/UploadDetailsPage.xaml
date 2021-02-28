@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GoFileClient.Views.UploadDetailsPage"
+             Title="Batch Files">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Spacing="0"
+                         Margin="10"
+                         Orientation="Horizontal">
+                <Button Text="+ Add File" Command="{Binding AddLineCommand}" CornerRadius="30" WidthRequest="150"/>
+                <ImageButton Command="{Binding CopyClickCommand}" 
+                             Source="copy_link.png" 
+                             WidthRequest="50" 
+                             BackgroundColor="Transparent" 
+                             HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <ListView ItemsSource="{Binding UploadLines}"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete File" CommandParameter="{Binding .}" IsDestructive="True" Clicked="DeleteLine_Clicked"/>
+                            </ViewCell.ContextActions>
+                            <Frame HasShadow="True" 
+                                   CornerRadius="4" Margin="5" Padding="7">
+                                <StackLayout Spacing="0">
+                                    <Label Text="{Binding FileName}"/>
+                                    <StackLayout Spacing="0" Orientation="Horizontal">
+                                        <Label Text="{Binding StringFormat='Last Changed {0:dd-MMM-yyyy}', Path=LastUpdatedDate}"/>
+                                        <Label Text="{Binding StringFormat='Size {0}', Path=FileSize}" HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
