@@ -112,5 +112,13 @@ namespace GoFileClient.Models
                 lines.Where(x => x.UploadHeaderID == this.UploadHeader.UploadHeaderID).ToList().ForEach(x => UploadLines.Add(x));
             }
         }
+
+        protected override void NetworkConnected()
+        {
+            base.NetworkConnected();
+            GoFileUploadManager uploadManager = GoFileUploadManager.GetManager(UploadHeader);
+            Task uploadTask = new Task(async () => await uploadManager.StartUploadQueue());
+            uploadTask.Start();
+        }
     }
 }

@@ -101,6 +101,26 @@ namespace GoFileClient.Models
             List<UploadHeaderEntity> headers = await DbConnection.GetUploadHeaders();
 
             headers.ForEach(x => UploadHeaders.Add(x));
+
+            Task t = new Task(UploadPendingFiles);
+            t.Start();            
+        }
+
+        private async void UploadPendingFiles()
+        {
+            List<UploadHeaderEntity> headers = await DbConnection.GetUploadHeaders();
+            foreach(UploadHeaderEntity header in headers)
+            {
+                GoFileUploadManager uploadManager = GoFileUploadManager.GetManager(header);
+                await uploadManager.StartUploadQueue();
+            }
+        }
+
+        protected override void NetworkConnected()
+        {
+            base.NetworkConnected();
+            Task t = new Task(UploadPendingFiles);
+            t.Start();
         }
     }
 }

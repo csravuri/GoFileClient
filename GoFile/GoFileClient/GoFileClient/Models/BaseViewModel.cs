@@ -1,4 +1,5 @@
-﻿using GoFileClient.Database;
+﻿using GoFileClient.Common;
+using GoFileClient.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,20 @@ namespace GoFileClient.Models
         {
             this.Navigation = navigation;
             LinkClickedCommand = new Command<string>(async (string URL) => await ExecuteLinkClickedCommand(URL));
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+        }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                NetworkConnected();
+            }
+        }
+
+        protected virtual void NetworkConnected()
+        {
+            ToastMessage.ShowShortAlert("Connected to Internet.");
         }
 
         private async Task ExecuteLinkClickedCommand(string URL)
