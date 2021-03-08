@@ -33,5 +33,11 @@ namespace GoFileClient.Views
             MenuItem menu = sender as MenuItem;
             viewModel.DeleteLineCommand.Execute(menu.CommandParameter);
         }
+
+        private void File_Tapped(object sender, ItemTappedEventArgs e)
+        {
+            ListView listView = sender as ListView;
+            listView.SelectedItem = null;
+        }
     }
 }

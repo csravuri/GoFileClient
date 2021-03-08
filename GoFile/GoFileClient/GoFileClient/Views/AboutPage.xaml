@@ -7,8 +7,149 @@
              x:Class="GoFileClient.Views.AboutPage"
              Title="About">
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
+        <StackLayout Margin="5">
+            <Label FontSize="18" TextColor="#3f324d">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Mobile client for "/>
+                        <Span Text="https://gofile.io"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://gofile.io"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="You can upload files to popular GoFile site from mobile and share the URL to anyone to download, can share Admin Code(AC) to delete them if needed."
+                   FontSize="18" TextColor="#3f324d"/>
+            <Label Text="Credits:"
+                   FontSize="25" TextColor="#6428a6"/>
+            <Label FontSize="18" TextColor="#3f324d">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="API: "/>
+                        <Span Text="https://gofile.io/api"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://gofile.io/api"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="18" TextColor="#3f324d">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Icons: "/>
+                        <Span Text="https://icons8.com/"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://icons8.com/"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="18" TextColor="#3f324d">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Logo: "/>
+                        <Span Text="https://hatchful.shopify.com/"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://hatchful.shopify.com/"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Frame CornerRadius="5" BorderColor="#6800db" HasShadow="False" Padding="5">
+                <StackLayout>
+                    <Label Text="If you like it support the original API creator."
+                    FontSize="18" TextColor="#3f324d"/>
+                    <Label FontSize="18" TextColor="#3f324d">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="https://www.patreon.com/gofile"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://www.patreon.com/gofile"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="18" TextColor="#3f324d">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="https://www.buymeacoffee.com/gofile"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://www.buymeacoffee.com/gofile"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="5" BorderColor="#6800db" HasShadow="False" Padding="5">
+                <StackLayout>
+                        <Label Text="This mobile app created by Chandra Sekhar Ravuri" FontSize="18" TextColor="#3f324d"/>
+                    <Label FontSize="18" TextColor="#3f324d">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="My website: "/>
+                                <Span Text="https://csravuri.github.io"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://csravuri.github.io"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="18" TextColor="#3f324d">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Source Code: "/>
+                                <Span Text="https://github.com/csravuri/GoFileClient"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://github.com/csravuri/GoFileClient"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="18" TextColor="#3f324d">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Github Repo: "/>
+                                <Span Text="https://github.com/csravuri"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LinkClickedCommand}" CommandParameter="https://github.com/csravuri"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Frame>
             <Button Text="View Logs" Command="{Binding ViewLogsClickedCommand}"/>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

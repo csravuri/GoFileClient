@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace GoFileClient.Models
@@ -12,10 +15,17 @@ namespace GoFileClient.Models
     {
         protected INavigation Navigation { get; set; }
         protected DbConnection DbConnection { get; private set; } = DbConnection.GetDbConnection();
+        public ICommand LinkClickedCommand { get; private set; }
 
         public BaseViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
+            LinkClickedCommand = new Command<string>(async (string URL) => await ExecuteLinkClickedCommand(URL));
+        }
+
+        private async Task ExecuteLinkClickedCommand(string URL)
+        {
+            await Launcher.TryOpenAsync(URL);
         }
 
         //protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
@@ -35,6 +45,6 @@ namespace GoFileClient.Models
         //{
         //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         //}
-        
+
     }
 }

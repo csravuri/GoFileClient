@@ -4,12 +4,41 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoFileClient.Views.LogsPage">
+             x:Class="GoFileClient.Views.LogsPage"
+             Title="Log Files">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ListView ItemsSource="{Binding FileInfos}"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      ItemTapped="FileInfo_Tapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame HasShadow="True" 
+                                CornerRadius="4" 
+                                Margin="5" 
+                                Padding="7"
+                                BackgroundColor="#cadbce">
+                                <StackLayout Spacing="0">
+                                    <Label Text="{Binding FileName}" TextColor="#000" FontSize="16"/>
+                                    <StackLayout Spacing="0" Orientation="Horizontal">
+                                        <Label Text="{Binding StringFormat='Last Changed {0:dd-MMM-yyyy}', Path=LastUpdatedDate}"/>
+                                        <Label HorizontalOptions="EndAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Size: " TextColor="#7a7a7a"/>
+                                                    <Span Text="{Binding Size}" TextColor="#000"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

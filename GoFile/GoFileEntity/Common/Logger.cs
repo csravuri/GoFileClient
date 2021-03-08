@@ -14,7 +14,7 @@ namespace GoFileHelper.Common
 
             string fileFullPath = Path.Combine(folderPath, fileName);
 
-            File.AppendAllText(fileFullPath, $"{DateTime.Now}: {message}\n");
+            File.AppendAllText(fileFullPath, $"{DateTime.Now.ToString("yyyy/MMM/dd HH:mm:ss.fff")}: {message}\n");
         }
 
         public static FileInfo[] GetLogFiles()

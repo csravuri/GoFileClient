@@ -1,4 +1,5 @@
-﻿using GoFileHelper.Entites;
+﻿using GoFileHelper.Common;
+using GoFileHelper.Entites;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -99,7 +99,8 @@ namespace GoFileClient.Models
             isFilePickerActive = false;
 
             GoFileUploadManager uploadManager = GoFileUploadManager.GetManager(UploadHeader);
-            uploadManager.StartUploadQueue();
+            Task uploadTask = new Task(async () => await uploadManager.StartUploadQueue());
+            uploadTask.Start();            
         }
 
         private async Task ExecuteLoadUploadDetailsCommand()

@@ -45,7 +45,8 @@
             </StackLayout>            
             <ListView ItemsSource="{Binding UploadLines}"
                       HasUnevenRows="True"
-                      SeparatorVisibility="None">
+                      SeparatorVisibility="None"
+                      ItemTapped="File_Tapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

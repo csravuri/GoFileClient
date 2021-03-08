@@ -19,5 +19,16 @@ namespace GoFileClient.Views
             InitializeComponent();
             BindingContext = this.viewModel = new LogsViewModel(this.Navigation);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.LoadLogFilesCommand.Execute(null);
+        }
+
+        private void FileInfo_Tapped(object sender, ItemTappedEventArgs e)
+        {
+            viewModel.DisplayLogCommand.Execute(e.Item);
+        }
     }
 }
