@@ -60,7 +60,10 @@ namespace GoFileClient
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Views.BatchDetailsPage());
+            MainPage = new NavigationPage(new Views.BatchDetailsPage()) 
+            { 
+                BarBackgroundColor = Color.FromHex("#570099")
+            };
         }
 
         protected override void OnStart()

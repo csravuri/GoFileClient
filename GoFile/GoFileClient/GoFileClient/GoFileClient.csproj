@@ -17,13 +17,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\GoFileEntity\GoFileHelper.csproj" />
+    <ProjectReference Include="..\..\GoFileServiceConnect\GoFileServiceConnect.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\BatchDetailsPage.xaml.cs">
       <DependentUpon>BatchDetailsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\AboutPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\BatchDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LogsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LogViewPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\UploadDetailsPage.xaml">

@@ -19,6 +19,8 @@ namespace GoFileClient.Models
         public ICommand NavigateUploadDetailsCommand { get; private set; }
         public ICommand ShowFilesCommand { get; private set; }
         public ICommand DeleteBatchCommand { get; private set; }
+        public ICommand AboutClickedCommand { get; private set; }
+        public ICommand AddURLCommand { get; private set; }
 
         public ObservableCollection<UploadHeaderEntity> UploadHeaders { get; set; }
 
@@ -29,6 +31,18 @@ namespace GoFileClient.Models
             NavigateUploadDetailsCommand = new Command<UploadHeaderEntity>(async (UploadHeaderEntity uploadHeader) => await ExecuteNavigateUploadDetailsCommand(uploadHeader));
             ShowFilesCommand = new Command<UploadHeaderEntity>(async (UploadHeaderEntity uploadHeader) => await ExecuteShowFilesCommand(uploadHeader));
             DeleteBatchCommand = new Command<UploadHeaderEntity>(async (UploadHeaderEntity uploadHeader) => await ExecuteDeleteBatchCommand(uploadHeader));
+            AboutClickedCommand = new Command(async () => await ExecuteAboutClickedCommand());
+            AddURLCommand = new Command(async () => await ExecuteAddURLCommand());
+        }
+
+        private async Task ExecuteAddURLCommand()
+        {
+            ToastMessage.ShowLongAlert("Coming soon!");
+        }
+
+        private async Task ExecuteAboutClickedCommand()
+        {
+            await Navigation.PushAsync(new AboutPage());            
         }
 
         private async Task ExecuteDeleteBatchCommand(UploadHeaderEntity uploadHeader)
@@ -70,7 +84,7 @@ namespace GoFileClient.Models
             UploadHeaderEntity uploadHeaderEntity = new UploadHeaderEntity()
             {
                 LocalFolderName = folderName,
-                LocalFolderPath = Directory.CreateDirectory(Path.Combine(App.StorageLocationPath, folderName)).FullName,//Path.Combine(App.StorageLocationPath, folderName),
+                LocalFolderPath = Directory.CreateDirectory(Path.Combine(App.StorageLocationPath, folderName)).FullName,
                 CreatedDate = DateTime.Now
             };
 

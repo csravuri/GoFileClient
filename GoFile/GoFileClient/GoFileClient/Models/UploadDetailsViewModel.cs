@@ -10,6 +10,7 @@ using System.Linq;
 using Xamarin.Essentials;
 using System.IO;
 using GoFileClient.Common;
+using GoFileHelper.Common;
 
 namespace GoFileClient.Models
 {
@@ -34,7 +35,7 @@ namespace GoFileClient.Models
             UploadLines = new ObservableCollection<UploadLineEntity>();
             LoadUploadDetailsCommand = new Command(async () => await ExecuteLoadUploadDetailsCommand());
             AddLineCommand = new Command(async () => await ExecuteAddLineCommand());
-            CopyClickCommand = new Command(async () => await ExecuteCopyClickCommand());
+            CopyClickCommand = new Command<string>(async (string Text) => await ExecuteCopyClickCommand(Text));
             DeleteLineCommand = new Command<UploadLineEntity>(async (UploadLineEntity UploadLine) => await ExecuteDeleteLineCommand(UploadLine));
             //CopyClickAndHoldCommand = new Command(async () => await ExecuteCopyClickAndHoldCommand());
         }
@@ -54,10 +55,10 @@ namespace GoFileClient.Models
         //    ToastMessage.ShowLongAlert("show URL in text box to compy");
         //}
 
-        private async Task ExecuteCopyClickCommand()
+        private async Task ExecuteCopyClickCommand(string text)
         {
-            await Clipboard.SetTextAsync(UploadHeader.URL ?? "Some URL will come here.");
-            ToastMessage.ShowLongAlert("URL copied to clipboard");
+            await Clipboard.SetTextAsync(text);
+            ToastMessage.ShowLongAlert("Text copied to clipboard");
         }
 
         private async Task ExecuteAddLineCommand()
@@ -78,6 +79,8 @@ namespace GoFileClient.Models
             {
                 FileInfo info = new FileInfo(file.FullPath);
                 info.CopyTo(UploadHeader.LocalFolderPath, true);
+                // TODO: File Rename if confilict
+
                 lines.Add(new UploadLineEntity()
                 {
                     UploadHeaderID = this.UploadHeader.UploadHeaderID,
@@ -94,6 +97,9 @@ namespace GoFileClient.Models
             lines.ForEach(x => UploadLines.Add(x));
             ToastMessage.ShowShortAlert("File(s) added to Queue.");
             isFilePickerActive = false;
+
+            GoFileUploadManager uploadManager = GoFileUploadManager.GetManager(UploadHeader);
+            uploadManager.StartUploadQueue();
         }
 
         private async Task ExecuteLoadUploadDetailsCommand()

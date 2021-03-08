@@ -4,10 +4,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
-namespace GoFileClient.Common
+namespace GoFileHelper.Common
 {
     public static class Utils
     {
@@ -88,8 +86,11 @@ namespace GoFileClient.Common
         public static void AddRange<T>(this ObservableCollection<T> observableCollection, IEnumerable<T> list)
         {
             if (list == null) { throw new ArgumentNullException(nameof(list)); }
-            
-            list.ForEach(x => observableCollection.Add(x));
+
+            foreach (T item in list)
+            {
+                observableCollection.Add(item);
+            }
         }
     }
 }

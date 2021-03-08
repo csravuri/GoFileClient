@@ -6,6 +6,9 @@
              mc:Ignorable="d"
              x:Class="GoFileClient.Views.BatchDetailsPage"
              Title="Go File Client">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="about.png" Command="{Binding AboutClickedCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="BatchDetails"
@@ -21,7 +24,7 @@
                                 <MenuItem Text="Show Files" CommandParameter="{Binding .}" Clicked="ShowFiles_Clicked"/>
                                 <MenuItem Text="Delete Batch" CommandParameter="{Binding .}" IsDestructive="True" Clicked="DeleteBatch_Clicked"/>
                             </ViewCell.ContextActions>
-                            <Frame CornerRadius="4" Margin="5" Padding="7">
+                            <Frame CornerRadius="4" Margin="5" Padding="7" BackgroundColor="#eee6fa">
                                 <StackLayout Spacing="0">
                                     <StackLayout Spacing="0" Orientation="Horizontal">
                                         <Label Text="{Binding StringFormat='Last Changed {0:dd-MMM-yyyy}', Path=LastUpdatedDate}"/>
@@ -35,8 +38,8 @@
                 </ListView.ItemTemplate>
             </ListView>
             <StackLayout Orientation="Horizontal" Spacing="0" Margin="10">
-                <Button CornerRadius="30" Text="+ New Batch" Command="{Binding NavigateUploadDetailsCommand}" WidthRequest="160"/>
-                <Button CornerRadius="30" Text="Add URL(beta)" WidthRequest="160"  HorizontalOptions="EndAndExpand"/>
+                <Button CornerRadius="30" Text="+ New Batch" Command="{Binding NavigateUploadDetailsCommand}" WidthRequest="160" BackgroundColor="#08d4a8"/>
+                <Button CornerRadius="30" Text="Add URL(beta)" WidthRequest="160"  HorizontalOptions="EndAndExpand" BackgroundColor="#6dc9d1" Command="{Binding AddURLCommand}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

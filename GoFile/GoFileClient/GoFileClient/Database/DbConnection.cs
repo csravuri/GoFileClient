@@ -1,5 +1,6 @@
 ﻿using GoFileClient.Common;
 using GoFileClient.Entities;
+using GoFileHelper.Common;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace GoFileClient.Database
         private SQLiteAsyncConnection _connection;
         private static DbConnection _dbConnection;
         private string _dbPath;
+        private readonly static object lockObject = new object();
         private DbConnection()
         {
             string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Database");
@@ -31,9 +33,12 @@ namespace GoFileClient.Database
 
         public static DbConnection GetDbConnection()
         {
-            if (_dbConnection == null)
+            lock (lockObject)
             {
-                _dbConnection = new DbConnection();
+                if (_dbConnection == null)
+                {
+                    _dbConnection = new DbConnection();
+                }
             }
 
             return _dbConnection;

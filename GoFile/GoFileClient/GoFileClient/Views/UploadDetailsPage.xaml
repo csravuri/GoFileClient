@@ -6,18 +6,43 @@
              mc:Ignorable="d"
              x:Class="GoFileClient.Views.UploadDetailsPage"
              Title="Batch Files">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="add_files.png" Command="{Binding AddLineCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Spacing="0"
-                         Margin="10"
-                         Orientation="Horizontal">
-                <Button Text="+ Add File" Command="{Binding AddLineCommand}" CornerRadius="30" WidthRequest="150"/>
+            <StackLayout Orientation="Horizontal"
+                         Margin="5,5,0,0">
+                <Label FontSize="18">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="URL: " TextColor="#0008ff"/>
+                            <Span Text="{Binding Path=UploadHeader.URL}" TextColor="#1fa9ff"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
                 <ImageButton Command="{Binding CopyClickCommand}" 
                              Source="copy_link.png" 
-                             WidthRequest="50" 
-                             BackgroundColor="Transparent" 
-                             HorizontalOptions="EndAndExpand"/>
+                             WidthRequest="30" 
+                             BackgroundColor="Transparent"
+                             CommandParameter="{Binding Path=UploadHeader.URL}"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         Margin="5,0,0,0">
+                <Label FontSize="18">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="AC: " TextColor="#0008ff"/>
+                            <Span Text="{Binding Path=UploadHeader.AdminCode}" TextColor="#1fa9ff"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <ImageButton Command="{Binding CopyClickCommand}" 
+                             Source="copy_link.png" 
+                             WidthRequest="30" 
+                             BackgroundColor="Transparent"
+                             CommandParameter="{Binding Path=UploadHeader.AdminCode}"/>
+            </StackLayout>            
             <ListView ItemsSource="{Binding UploadLines}"
                       HasUnevenRows="True"
                       SeparatorVisibility="None">
@@ -28,12 +53,22 @@
                                 <MenuItem Text="Delete File" CommandParameter="{Binding .}" IsDestructive="True" Clicked="DeleteLine_Clicked"/>
                             </ViewCell.ContextActions>
                             <Frame HasShadow="True" 
-                                   CornerRadius="4" Margin="5" Padding="7">
+                                   CornerRadius="4" 
+                                   Margin="5" 
+                                   Padding="7"
+                                   BackgroundColor="#e6fcfb">
                                 <StackLayout Spacing="0">
-                                    <Label Text="{Binding FileName}"/>
+                                    <Label Text="{Binding FileName}" TextColor="#000" FontSize="16"/>
                                     <StackLayout Spacing="0" Orientation="Horizontal">
                                         <Label Text="{Binding StringFormat='Last Changed {0:dd-MMM-yyyy}', Path=LastUpdatedDate}"/>
-                                        <Label Text="{Binding StringFormat='Size {0}', Path=FileSize}" HorizontalOptions="EndAndExpand"/>
+                                        <Label HorizontalOptions="EndAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Size: " TextColor="#7a7a7a"/>
+                                                    <Span Text="{Binding FileSize}" TextColor="#000"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
