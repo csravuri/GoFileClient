@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace GoFileClient.Common
 {
@@ -43,14 +44,21 @@ namespace GoFileClient.Common
 
             while (lines.Count > 0)
             {
-                await UploadFiles(lines, connector);
-                lines = GetPendingLines(await DBConnection.GetUploadLines());
+                if (await UploadFiles(lines, connector))
+                {
+                    lines = GetPendingLines(await DBConnection.GetUploadLines());
+                }
+                else
+                {
+                    Device.InvokeOnMainThreadAsync(() => ToastMessage.ShowLongAlert("Issue with Internet. Check logs for more info."));                    
+                    break;
+                }
             }
 
             isBusy = false;
         }
 
-        private async Task UploadFiles(List<UploadLineEntity> lines, GoFileConnector connector)
+        private async Task<bool> UploadFiles(List<UploadLineEntity> lines, GoFileConnector connector)
         {
             foreach (UploadLineEntity line in lines)
             {
@@ -66,6 +74,10 @@ namespace GoFileClient.Common
                         await DBConnection.UpdateRecord(header);
                         await DBConnection.UpdateRecord(line);
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -77,8 +89,14 @@ namespace GoFileClient.Common
                         await DBConnection.UpdateRecord(header);
                         await DBConnection.UpdateRecord(line);
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
+
+            return true;
         }
 
         private List<UploadLineEntity> GetPendingLines(List<UploadLineEntity> lines)

@@ -29,7 +29,28 @@ namespace GoFileServiceConnect
                 client.BaseAddress = new Uri(URL);
                 //HTTP GET
                 var responseTask = client.GetAsync("getServer");
-                responseTask.Wait();
+
+                try
+                {
+                    responseTask.Wait();
+                }
+                catch(AggregateException ex)
+                {
+                    Logger.Log(ex.Message);
+                    if (ex.InnerExceptions != null && ex.InnerExceptions.Count > 0)
+                    {
+                        foreach(var innerEx in ex.InnerExceptions)
+                        {
+                            Logger.Log(innerEx.Message);
+                        }
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex.Message);
+                    return false;
+                }                
 
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -99,7 +120,27 @@ namespace GoFileServiceConnect
                 client.BaseAddress = new Uri(URL);
                 //HTTP POST
                 var responseTask = client.PostAsync("uploadFile", formDataContent);
-                responseTask.Wait();
+                try
+                {
+                    responseTask.Wait();
+                }
+                catch (AggregateException ex)
+                {
+                    Logger.Log(ex.Message);
+                    if (ex.InnerExceptions != null && ex.InnerExceptions.Count > 0)
+                    {
+                        foreach (var innerEx in ex.InnerExceptions)
+                        {
+                            Logger.Log(innerEx.Message);
+                        }
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex.Message);
+                    return false;
+                }
 
                 var result = responseTask.Result;
 
