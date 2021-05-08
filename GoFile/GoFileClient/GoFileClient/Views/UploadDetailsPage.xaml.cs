@@ -39,5 +39,23 @@ namespace GoFileClient.Views
             ListView listView = sender as ListView;
             listView.SelectedItem = null;
         }
+
+        private void DeleteLine_CloudClicked(object sender, EventArgs e)
+        {
+            ImageButton button = sender as ImageButton;
+            viewModel.DeleteLineCloudCommand.Execute(button.CommandParameter);
+        }
+
+        private void DeleteLine_BothClicked(object sender, EventArgs e)
+        {
+            ImageButton button = sender as ImageButton;
+            viewModel.DeleteLineBothCommand.Execute(button.CommandParameter);
+        }
+
+        private void DeleteLine_LocalClicked(object sender, EventArgs e)
+        {
+            ImageButton button = sender as ImageButton;
+            viewModel.DeleteLineLocalCommand.Execute(button.CommandParameter);
+        }
     }
 }

@@ -92,11 +92,13 @@
                                                 <Setter Property="IsVisible" Value="false" />
                                             </DataTrigger>
                                         </StackLayout.Triggers>
-                                        <ProgressBar Progress="{Binding ProgressPercentage}" HorizontalOptions="FillAndExpand" ProgressColor="Green"/>                                        
+                                        <ProgressBar Progress="{Binding ProgressPercentage}" HorizontalOptions="FillAndExpand" ProgressColor="Green"/>
                                     </StackLayout>
-                                    <StackLayout Spacing="0" Orientation="Horizontal" IsVisible="false">
-                                        <Label Text="Delete" TextColor="Red"/>
-                                        <ImageButton Source="" /> 
+                                    <StackLayout Spacing="0" Orientation="Horizontal" Margin="0,5,0,0">
+                                        <Label Text="Delete:" TextColor="Red" VerticalOptions="Center" FontSize="20"/>
+                                        <ImageButton Source="delete_cloud.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" WidthRequest="50" CommandParameter="{Binding .}" Clicked="DeleteLine_CloudClicked"/>
+                                        <ImageButton Source="delete_local.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" WidthRequest="50" CommandParameter="{Binding .}" Clicked="DeleteLine_LocalClicked"/>
+                                        <ImageButton Source="delete.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" WidthRequest="50" CommandParameter="{Binding .}" Clicked="DeleteLine_BothClicked"/>
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

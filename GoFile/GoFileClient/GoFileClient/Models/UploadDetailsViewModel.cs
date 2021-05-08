@@ -25,6 +25,9 @@ namespace GoFileClient.Models
         public ICommand AddLineCommand { get; private set; }
         public ICommand CopyClickCommand { get; private set; }
         public ICommand DeleteLineCommand { get; private set; }
+        public ICommand DeleteLineCloudCommand { get; private set; }
+        public ICommand DeleteLineLocalCommand { get; private set; }
+        public ICommand DeleteLineBothCommand { get; private set; }
         //public ICommand CopyClickAndHoldCommand { get; private set; }
 
         private bool isFilePickerActive = false;
@@ -44,7 +47,25 @@ namespace GoFileClient.Models
             AddLineCommand = new Command(async () => await ExecuteAddLineCommand());
             CopyClickCommand = new Command<string>(async (string Text) => await ExecuteCopyClickCommand(Text));
             DeleteLineCommand = new Command<UploadLineEntity>(async (UploadLineEntity UploadLine) => await ExecuteDeleteLineCommand(UploadLine));
+            DeleteLineCloudCommand = new Command<UploadLineEntity>(async (UploadLineEntity UploadLine) => await ExecuteDeleteLineCloudCommand(UploadLine));
+            DeleteLineLocalCommand = new Command<UploadLineEntity>(async (UploadLineEntity UploadLine) => await ExecuteDeleteLineLocalCommand(UploadLine));
+            DeleteLineBothCommand = new Command<UploadLineEntity>(async (UploadLineEntity UploadLine) => await ExecuteDeleteLineBothCommand(UploadLine));
             //CopyClickAndHoldCommand = new Command(async () => await ExecuteCopyClickAndHoldCommand());
+        }
+
+        private async Task ExecuteDeleteLineBothCommand(UploadLineEntity uploadLine)
+        {
+            ToastMessage.ShowShortAlert($"{uploadLine.FileName} deleted from Server and Local.");
+        }
+
+        private async Task ExecuteDeleteLineLocalCommand(UploadLineEntity uploadLine)
+        {
+            ToastMessage.ShowShortAlert($"{uploadLine.FileName} deleted from Local.");
+        }
+
+        private async Task ExecuteDeleteLineCloudCommand(UploadLineEntity uploadLine)
+        {
+            ToastMessage.ShowShortAlert($"{uploadLine.FileName} deleted from Server.");
         }
 
         private async Task ExecuteDeleteLineCommand(UploadLineEntity uploadLine)
@@ -102,12 +123,12 @@ namespace GoFileClient.Models
             await DbConnection.InsertRecord(lines);
             await DbConnection.UpdateRecord(UploadHeader);
             lines.ForEach(x => UploadLines.Add(x));
-            ToastMessage.ShowShortAlert("File(s) added to Queue.");
             isFilePickerActive = false;
 
             GoFileUploadManager uploadManager = GoFileUploadManager.GetManager(UploadHeader);
             Task uploadTask = new Task(async () => await uploadManager.StartUploadQueue());
-            uploadTask.Start();            
+            uploadTask.Start();
+            ToastMessage.ShowShortAlert("File(s) added to Queue.");
         }
 
         private async Task ExecuteLoadUploadDetailsCommand()
