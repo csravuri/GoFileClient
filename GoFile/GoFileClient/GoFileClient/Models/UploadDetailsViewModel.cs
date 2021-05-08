@@ -11,10 +11,11 @@ using Xamarin.Essentials;
 using System.IO;
 using GoFileClient.Common;
 using GoFileHelper.Common;
+using System.ComponentModel;
 
 namespace GoFileClient.Models
 {
-    public class UploadDetailsViewModel : BaseViewModel
+    public class UploadDetailsViewModel : BaseViewModel//, INotifyPropertyChanged
     {
         
         public UploadHeaderEntity UploadHeader { get; private set; }
@@ -27,7 +28,13 @@ namespace GoFileClient.Models
         //public ICommand CopyClickAndHoldCommand { get; private set; }
 
         private bool isFilePickerActive = false;
-        
+
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        //protected virtual void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         public UploadDetailsViewModel(INavigation navigation, UploadHeaderEntity uploadHeader) : base(navigation)
         {

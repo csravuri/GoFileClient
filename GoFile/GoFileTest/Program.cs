@@ -2,6 +2,7 @@
 using GoFileServiceConnect;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,10 @@ namespace GoFileTest
         {
             GoFileConnector goFile = new GoFileConnector();
 
-            BatchDetails batchDetails = null;
-            goFile.UploadFile(out batchDetails, @"D:\IOmanager.png", "8iyON9yf7VZZrYZF11N0");
+            goFile.UploadFile(out BatchDetails batchDetails, @"D:\IOmanager.png", null, (x) => Debug.Print($"{DateTime.Now.ToString()}, Tatal: {x.TotalBytes}, Trasfered: {x.BytesTransferred}, percentage:{x.ProgressPercentage}"));
+            Debug.Print($"{batchDetails.code}, {batchDetails.adminCode}");
 
+            //goFile.GetUpload("oNNorW", "L8Tzat3m4PYteCIjY9Lr");
         }
     }
 }

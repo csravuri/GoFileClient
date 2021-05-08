@@ -59,7 +59,19 @@
                                    Padding="7"
                                    BackgroundColor="#e6fcfb">
                                 <StackLayout Spacing="0">
-                                    <Label Text="{Binding FileName}" TextColor="#000" FontSize="16"/>
+                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                        <Label Text="{Binding FileName}" TextColor="#000" FontSize="16"/>
+                                        <Image Source="" WidthRequest="20" IsAnimationPlaying="True" HorizontalOptions="EndAndExpand">
+                                            <Image.Triggers>
+                                                <DataTrigger TargetType="Image" Binding="{Binding IsUploaded}" Value="false">
+                                                    <Setter Property="Source" Value="upload_cloud_progress.gif"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Image" Binding="{Binding IsUploaded}" Value="true">
+                                                    <Setter Property="Source" Value="upload_complete.png"/>
+                                                </DataTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+                                    </StackLayout>
                                     <StackLayout Spacing="0" Orientation="Horizontal">
                                         <Label Text="{Binding StringFormat='Last Changed {0:dd-MMM-yyyy}', Path=LastUpdatedDate}"/>
                                         <Label HorizontalOptions="EndAndExpand">
@@ -70,6 +82,21 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
+                                    </StackLayout>
+                                    <StackLayout Spacing="0" Orientation="Horizontal">
+                                        <StackLayout.Triggers>
+                                            <DataTrigger TargetType="StackLayout" Binding="{Binding IsUploaded}" Value="false">
+                                                <Setter Property="IsVisible" Value="true" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="StackLayout" Binding="{Binding IsUploaded}" Value="true">
+                                                <Setter Property="IsVisible" Value="false" />
+                                            </DataTrigger>
+                                        </StackLayout.Triggers>
+                                        <ProgressBar Progress="{Binding ProgressPercentage}" HorizontalOptions="FillAndExpand" ProgressColor="Green"/>                                        
+                                    </StackLayout>
+                                    <StackLayout Spacing="0" Orientation="Horizontal" IsVisible="false">
+                                        <Label Text="Delete" TextColor="Red"/>
+                                        <ImageButton Source="" /> 
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

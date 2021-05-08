@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoFileClient.Android", "GoFileClient\GoFileClient.Android\GoFileClient.Android.csproj", "{3248398E-A761-4A27-BE6E-865C40883C27}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9881F92C-9044-42C5-A1E4-B9B9017B419D} = {9881F92C-9044-42C5-A1E4-B9B9017B419D}
+		{9F26438E-AA78-48B1-BA79-9C902F03FA13} = {9F26438E-AA78-48B1-BA79-9C902F03FA13}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoFileClient", "GoFileClient\GoFileClient\GoFileClient.csproj", "{0CC4069F-F2F3-49DA-AAA2-33E2EB5DF4CC}"
 EndProject

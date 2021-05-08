@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoFileClient.Views.LoadingPage"
+             NavigationPage.HasNavigationBar="False">
+    <StackLayout Margin="0, 30">
+        <Label Text="GoFile Client" FontSize="50" HorizontalOptions="Center" TextColor="#570099" FontFamily="monospace"/>
+
+        <ImageButton Source="main_logo.png" CornerRadius="1000" WidthRequest="200" HeightRequest="200" BackgroundColor="Transparent" HorizontalOptions="Center"/>
+
+        <Label Text="Loading . . ." FontSize="50" HorizontalOptions="Center" TextColor="#d1c5e3" VerticalOptions="EndAndExpand"/>
+        <Image Source="loading_timer.gif" IsAnimationPlaying="True" WidthRequest="80" HeightRequest="80" VerticalOptions="EndAndExpand"/>
+    </StackLayout>
+</ContentPage>

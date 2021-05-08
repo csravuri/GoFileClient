@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="GoFileClient.Views.BatchDetailsPage"
-             Title="Go File Client">
+             Title="Go File Client"
+             NavigationPage.HasBackButton="False">
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="about.png" Command="{Binding AboutClickedCommand}" />
     </ContentPage.ToolbarItems>

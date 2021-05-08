@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Handlers;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,19 +15,21 @@ namespace GoFileServiceConnect
 {
     public class GoFileConnector
     {
+        private readonly string ApiServerURL = "https://apiv2.gofile.io";
+        private readonly string ApiURL = "https://api.gofile.io";
+
         /// <summary>
         /// Returns false if server details not found
         /// </summary>
         /// <param name="serverAddress"></param>
         /// <returns></returns>
         private bool GetServers(out string serverAddress)
-        {
-            string URL = "https://apiv2.gofile.io";
+        {            
             serverAddress = null;
                         
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(URL);
+                client.BaseAddress = new Uri(ApiServerURL);
                 //HTTP GET
                 var responseTask = client.GetAsync("getServer");
 
@@ -67,7 +70,7 @@ namespace GoFileServiceConnect
                 }
                 else //web api sent error response 
                 {
-                    Logger.Log($"Something went wrong while getting active server. API {URL} is not reachable.");
+                    Logger.Log($"Something went wrong while getting active server. API {ApiServerURL} is not reachable.");
                     return false;
                 }
             }
@@ -78,7 +81,7 @@ namespace GoFileServiceConnect
         /// </summary>
         /// <param name="fileFullPath">If file doesnot exist nothing will happen</param>
         /// <param name="adminCode">If admin code is not provided, will create new batch</param>
-        public bool UploadFile(out BatchDetails batchDetails, string fileFullPath, string adminCode = null)
+        public bool UploadFile(out BatchDetails batchDetails, string fileFullPath, string adminCode = null, Action<HttpProgressEventArgs> callback = null)
         {
             batchDetails = null;
             bool uploadSuccess = false;
@@ -94,7 +97,7 @@ namespace GoFileServiceConnect
             
             string URL = $"https://{server}.gofile.io";
 
-            FileStream fileStream = new FileStream(fileFullPath, FileMode.Open);
+            FileStream fileStream = new FileStream(fileFullPath, FileMode.Open, FileAccess.Read, FileShare.None);
             HttpContent fileContent = new StreamContent(fileStream);
 
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
@@ -115,14 +118,22 @@ namespace GoFileServiceConnect
                 formDataContent.Add(adminCodeContent, "ac");
             }
 
-            using (var client = new HttpClient())
+            ProgressMessageHandler progress = new ProgressMessageHandler();
+
+            if (callback != null)
             {
+                progress.HttpSendProgress += new EventHandler<HttpProgressEventArgs>((e, args) => callback(args));
+            }
+
+            using (var client = HttpClientFactory.Create(progress))
+            {
+                client.Timeout = new TimeSpan(23, 0, 0);
                 client.BaseAddress = new Uri(URL);
                 //HTTP POST
                 var responseTask = client.PostAsync("uploadFile", formDataContent);
                 try
                 {
-                    responseTask.Wait();
+                    responseTask.Wait(-1);
                 }
                 catch (AggregateException ex)
                 {
@@ -140,6 +151,12 @@ namespace GoFileServiceConnect
                 {
                     Logger.Log(ex.Message);
                     return false;
+                }
+                finally
+                {
+                    fileStream.Close(); 
+                    fileStream.Dispose();
+                    fileContent.Dispose();
                 }
 
                 var result = responseTask.Result;
@@ -175,15 +192,70 @@ namespace GoFileServiceConnect
                 else //web api sent error response 
                 {
                     Logger.Log($"Something went wrong while uploading a file. API {URL} is not reachable.");
-                    uploadSuccess = false;                    
+                    uploadSuccess = false;
                 }
-            }
-
-            fileStream.Dispose();
-            fileContent.Dispose();
+            }            
 
             return uploadSuccess;
         }
 
+        public bool GetUpload(string code, string adminCode = null)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ApiURL);
+
+                client.DefaultRequestHeaders.Add("c", code);
+                if (!string.IsNullOrWhiteSpace(adminCode))
+                {
+                    client.DefaultRequestHeaders.Add("ac", adminCode);
+                }
+                //HTTP GET
+                var responseTask = client.GetAsync("getUpload?c=oNNorW&ac=L8Tzat3m4PYteCIjY9Lr");
+
+                try
+                {
+                    responseTask.Wait();
+                }
+                //catch (AggregateException ex)
+                //{
+                //    Logger.Log(ex.Message);
+                //    if (ex.InnerExceptions != null && ex.InnerExceptions.Count > 0)
+                //    {
+                //        foreach (var innerEx in ex.InnerExceptions)
+                //        {
+                //            Logger.Log(innerEx.Message);
+                //        }
+                //    }
+                //    return false;
+                //}
+                catch (Exception ex)
+                {
+                    Logger.Log(ex.Message);
+                    return false;
+                }
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsStringAsync();
+                    readTask.Wait();
+
+                    var serverDetailResponse = readTask.Result;
+                    Logger.Log(serverDetailResponse);
+
+                    //serverAddress = JsonConvert.DeserializeObject<ServerDetailResponse>(serverDetailResponse).data.server;
+
+                    return true;
+                }
+                else //web api sent error response 
+                {
+                    Logger.Log($"Something went wrong while getting active server. API {ApiServerURL} is not reachable.");
+                    return false;
+                }
+            }
+
+
+        }
     }
 }

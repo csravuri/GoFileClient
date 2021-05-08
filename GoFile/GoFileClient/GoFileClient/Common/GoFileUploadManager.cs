@@ -65,10 +65,11 @@ namespace GoFileClient.Common
                 if (string.IsNullOrWhiteSpace(header.AdminCode))
                 {
                     BatchDetails batchDetails;
-                    if (connector.UploadFile(out batchDetails, line.FileFullPath))
+                    if (connector.UploadFile(out batchDetails, line.FileFullPath, callback: (args) => line.ProgressPercentage = args.ProgressPercentage / 100.0))
                     {
                         header.AdminCode = batchDetails.adminCode;
                         header.Code = batchDetails.code;
+                        header.URL = $"https://gofile.io/d/{batchDetails.code}";
                         line.IsUploaded = true;
 
                         await DBConnection.UpdateRecord(header);
@@ -82,7 +83,7 @@ namespace GoFileClient.Common
                 else
                 {
                     BatchDetails batchDetails;
-                    if (connector.UploadFile(out batchDetails, line.FileFullPath, header.AdminCode))
+                    if (connector.UploadFile(out batchDetails, line.FileFullPath, header.AdminCode, callback: (args) => line.ProgressPercentage = args.ProgressPercentage / 100.0))
                     {
                         line.IsUploaded = true;
 
