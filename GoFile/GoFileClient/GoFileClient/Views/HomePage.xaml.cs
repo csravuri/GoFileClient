@@ -11,10 +11,10 @@ using Xamarin.Forms.Xaml;
 namespace GoFileClient.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BatchDetailsPage : ContentPage
+    public partial class HomePage : ContentPage
     {
         BatchDetailsViewModel viewModel;
-        public BatchDetailsPage()
+        public HomePage()
         {
             InitializeComponent();
 

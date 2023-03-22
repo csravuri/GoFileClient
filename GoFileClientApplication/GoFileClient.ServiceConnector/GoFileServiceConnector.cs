@@ -69,7 +69,7 @@ namespace GoFileClient.ServiceConnector
 
                 if (response != null && response.IsSuccessStatusCode)
                 {
-                    await response.Content.ReadAsStringAsync();
+                    var responseString = await response.Content.ReadAsStringAsync();
                 }
             }
 

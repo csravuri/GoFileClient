@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoFileClient.Views.BatchDetailsPage"
+             x:Class="GoFileClient.Views.HomePage"
              Title="Go File Client"
              NavigationPage.HasBackButton="False">
     <ContentPage.ToolbarItems>
@@ -39,8 +39,8 @@
                 </ListView.ItemTemplate>
             </ListView>
             <StackLayout Orientation="Horizontal" Spacing="0" Margin="10">
-                <Button CornerRadius="30" Text="+ New Batch" Command="{Binding NavigateUploadDetailsCommand}" WidthRequest="160" BackgroundColor="#08d4a8"/>
-                <Button CornerRadius="30" Text="Add URL(beta)" WidthRequest="160"  HorizontalOptions="EndAndExpand" BackgroundColor="#6dc9d1" Command="{Binding AddURLCommand}"/>
+                <Button CornerRadius="30" Text="+ New" Command="{Binding NavigateUploadDetailsCommand}" WidthRequest="160" BackgroundColor="#08d4a8"/>
+                <Button CornerRadius="30" Text="+ Existing" WidthRequest="160"  HorizontalOptions="EndAndExpand" BackgroundColor="#6dc9d1" Command="{Binding AddURLCommand}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

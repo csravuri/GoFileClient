@@ -22,7 +22,7 @@ namespace GoFileClient.Models
         {
             if (Database.DbConnection.IsLoadingComplete())
             {
-                await Navigation.PushAsync(new BatchDetailsPage());
+                await Navigation.PushAsync(new HomePage());
                 Navigation.RemovePage(page);
             }
             else
@@ -34,7 +34,7 @@ namespace GoFileClient.Models
 
         private async void OnLoadingComplete(object sender, EventArgs e)
         {            
-            await Navigation.PushAsync(new BatchDetailsPage());
+            await Navigation.PushAsync(new HomePage());
             Navigation.RemovePage(page);
         }
     }

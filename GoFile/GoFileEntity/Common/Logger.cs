@@ -6,8 +6,9 @@ namespace GoFileHelper.Common
     public static class Logger
     {
         private static readonly string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Log_Files");
+
         public static void Log(string message)
-        {            
+        {
             Utils.MakeSureDirectoryExists(folderPath);
 
             string fileName = $"GoFileLog_{DateTime.Now.ToString("yyyy_MMM_dd")}.txt";
