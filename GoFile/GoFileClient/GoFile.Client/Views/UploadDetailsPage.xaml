@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GoFileClient.Views.UploadDetailsPage"
+             Title="Batch Files">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="add_files.png" Command="{Binding AddLineCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         Margin="5,5,0,0">
+                <Label FontSize="18">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="URL: " TextColor="#0008ff"/>
+                            <Span Text="{Binding Path=UploadHeader.URL}" TextColor="#1fa9ff"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <ImageButton Command="{Binding CopyClickCommand}" 
+                             Source="copy_link.png" 
+                             WidthRequest="30" 
+                             BackgroundColor="Transparent"
+                             CommandParameter="{Binding Path=UploadHeader.URL}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         Margin="5,0,0,0">
+                <Label FontSize="18">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="AC: " TextColor="#0008ff"/>
+                            <Span Text="{Binding Path=UploadHeader.AdminCode}" TextColor="#1fa9ff"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <ImageButton Command="{Binding CopyClickCommand}" 
+                             Source="copy_link.png" 
+                             WidthRequest="30" 
+                             BackgroundColor="Transparent"
+                             CommandParameter="{Binding Path=UploadHeader.AdminCode}"/>
+            </StackLayout>            
+            <ListView ItemsSource="{Binding UploadLines}"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      ItemTapped="File_Tapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete File" CommandParameter="{Binding .}" IsDestructive="True" Clicked="DeleteLine_Clicked"/>
+                            </ViewCell.ContextActions>
+                            <Frame HasShadow="True" 
+                                   CornerRadius="4" 
+                                   Margin="5" 
+                                   Padding="7"
+                                   BackgroundColor="#e6fcfb">
+                                <StackLayout Spacing="0">
+                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                        <Label Text="{Binding FileName}" TextColor="#000" FontSize="16"/>
+                                        <Image Source="" WidthRequest="20" IsAnimationPlaying="True" HorizontalOptions="EndAndExpand">
+                                            <Image.Triggers>
+                                                <DataTrigger TargetType="Image" Binding="{Binding IsUploaded}" Value="false">
+                                                    <Setter Property="Source" Value="upload_cloud_progress.gif"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Image" Binding="{Binding IsUploaded}" Value="true">
+                                                    <Setter Property="Source" Value="upload_complete.png"/>
+                                                </DataTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+                                    </StackLayout>
+                                    <StackLayout Spacing="0" Orientation="Horizontal">
+                                        <Label Text="{Binding StringFormat='Last Changed {0:dd-MMM-yyyy}', Path=LastUpdatedDate}"/>
+                                        <Label HorizontalOptions="EndAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Size: " TextColor="#7a7a7a"/>
+                                                    <Span Text="{Binding FileSize}" TextColor="#000"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                    <StackLayout Spacing="0" Orientation="Horizontal">
+                                        <StackLayout.Triggers>
+                                            <DataTrigger TargetType="StackLayout" Binding="{Binding IsUploaded}" Value="false">
+                                                <Setter Property="IsVisible" Value="true" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="StackLayout" Binding="{Binding IsUploaded}" Value="true">
+                                                <Setter Property="IsVisible" Value="false" />
+                                            </DataTrigger>
+                                        </StackLayout.Triggers>
+                                        <ProgressBar Progress="{Binding ProgressPercentage}" HorizontalOptions="FillAndExpand" ProgressColor="Green"/>
+                                    </StackLayout>
+                                    <StackLayout Spacing="0" Orientation="Horizontal" Margin="0,5,0,0">
+                                        <Label Text="Delete:" TextColor="Red" VerticalOptions="Center" FontSize="20"/>
+                                        <ImageButton Source="delete_cloud.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" WidthRequest="50" CommandParameter="{Binding .}" Clicked="DeleteLine_CloudClicked"/>
+                                        <ImageButton Source="delete_local.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" WidthRequest="50" CommandParameter="{Binding .}" Clicked="DeleteLine_LocalClicked"/>
+                                        <ImageButton Source="delete.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" WidthRequest="50" CommandParameter="{Binding .}" Clicked="DeleteLine_BothClicked"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoFileClient.Android", "GoFileClient\GoFileClient.Android\GoFileClient.Android.csproj", "{3248398E-A761-4A27-BE6E-865C40883C27}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoFileTest", "GoFileTest\GoFileTest.csproj", "{5B96BABF-9845-4B37-8DD4-07972CED8618}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoFileHelper", "GoFileEntity\GoFileHelper.csproj", "{9881F92C-9044-42C5-A1E4-B9B9017B419D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoFile.Client", "GoFileClient\GoFile.Client\GoFile.Client.csproj", "{FA7308DB-CE99-4753-8352-0400057A3240}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,18 @@ Global
 		{9881F92C-9044-42C5-A1E4-B9B9017B419D}.Release|iPhone.Build.0 = Release|Any CPU
 		{9881F92C-9044-42C5-A1E4-B9B9017B419D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{9881F92C-9044-42C5-A1E4-B9B9017B419D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Release|iPhone.Build.0 = Release|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{FA7308DB-CE99-4753-8352-0400057A3240}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
