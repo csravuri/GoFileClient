@@ -61,7 +61,7 @@
                                 <StackLayout Spacing="0">
                                     <StackLayout Orientation="Horizontal" Spacing="0">
                                         <Label Text="{Binding FileName}" TextColor="#000" FontSize="16"/>
-                                        <Image Source="" WidthRequest="20" IsAnimationPlaying="True" HorizontalOptions="EndAndExpand">
+                                        <Image WidthRequest="20" IsAnimationPlaying="True" HorizontalOptions="EndAndExpand">
                                             <Image.Triggers>
                                                 <DataTrigger TargetType="Image" Binding="{Binding IsUploaded}" Value="false">
                                                     <Setter Property="Source" Value="upload_cloud_progress.gif"/>

@@ -1,82 +1,75 @@
-﻿using GoFileClient.Entities;
-using System;
-using System.Collections.Generic;
-using Microsoft.Maui.Controls.Xaml;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
-
-namespace GoFileClient
+﻿namespace GoFileClient
 {
-    public partial class App : Application
-    {
-        #region Custom Properties // cant store complex types not usefull now
+	public partial class App : Application
+	{
+		#region Custom Properties // cant store complex types not usefull now
 
-        private static string StorageLocationPathKey = "StorageLocationPath";
-        public static string StorageLocationPath
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(StorageLocationPathKey)
-                    && Current.Properties[StorageLocationPathKey] is string locationPath
-                    && !string.IsNullOrWhiteSpace(locationPath))
-                {
-                    return locationPath;
-                }
-                else
-                {
-                    locationPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    Current.Properties[StorageLocationPathKey] = locationPath;
-                    return Current.Properties[StorageLocationPathKey] as string;
-                }
-            }
+		private static string StorageLocationPathKey = "StorageLocationPath";
+		public static string StorageLocationPath
+		{
+			get
+			{
+				if (Microsoft.Maui.Storage.Preferences.ContainsKey(StorageLocationPathKey)
+					&& Microsoft.Maui.Storage.Preferences.Get(StorageLocationPathKey, "") is string locationPath
+					&& !string.IsNullOrWhiteSpace(locationPath))
+				{
+					return locationPath;
+				}
+				else
+				{
+					locationPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+					Microsoft.Maui.Storage.Preferences.Set(StorageLocationPathKey, locationPath);
+					return locationPath;
+				}
+			}
 
-            // setter for choise by user to take any path. 
-            // TODO
-        }
+			// setter for choise by user to take any path. 
+			// TODO
+		}
 
-        //private static string UploadHeadersKey = "UploadHeaders";
+		//private static string UploadHeadersKey = "UploadHeaders";
 
-        //public static List<UploadHeaderEntity> UploadHeaders
-        //{
-        //    get
-        //    {
-        //        if (Current.Properties.ContainsKey(UploadHeadersKey)
-        //            && Current.Properties[UploadHeadersKey] is List<UploadHeaderEntity> headers
-        //            && headers != null)
-        //        {
-        //            return headers;
-        //        }
-        //        else
-        //        {
-        //            headers = new List<UploadHeaderEntity>();
-        //            Current.Properties.Add(UploadHeadersKey, headers);
-        //            return headers;
-        //        }
-        //    }
-        //}
+		//public static List<UploadHeaderEntity> UploadHeaders
+		//{
+		//    get
+		//    {
+		//        if (Microsoft.Maui.Storage.Preferences.ContainsKey(UploadHeadersKey)
+		//            && Microsoft.Maui.Storage.Preferences[UploadHeadersKey] is List<UploadHeaderEntity> headers
+		//            && headers != null)
+		//        {
+		//            return headers;
+		//        }
+		//        else
+		//        {
+		//            headers = new List<UploadHeaderEntity>();
+		//            Microsoft.Maui.Storage.Preferences.Add(UploadHeadersKey, headers);
+		//            return headers;
+		//        }
+		//    }
+		//}
 
-        #endregion
+		#endregion
 
-        public App()
-        {
-            InitializeComponent();
+		public App()
+		{
+			InitializeComponent();
 
-            MainPage = new NavigationPage(new Views.LoadingPage()) 
-            { 
-                BarBackgroundColor = Color.FromArgb("#570099")
-            };
-        }
+			MainPage = new NavigationPage(new Views.LoadingPage())
+			{
+				BarBackgroundColor = Color.FromArgb("#570099")
+			};
+		}
 
-        protected override void OnStart()
-        {
-        }
+		protected override void OnStart()
+		{
+		}
 
-        protected override void OnSleep()
-        {
-        }
+		protected override void OnSleep()
+		{
+		}
 
-        protected override void OnResume()
-        {
-        }
-    }
+		protected override void OnResume()
+		{
+		}
+	}
 }
