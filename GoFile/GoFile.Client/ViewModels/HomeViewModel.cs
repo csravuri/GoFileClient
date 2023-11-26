@@ -41,7 +41,7 @@ namespace GoFile.Client.ViewModels
 			{
 				Name = Helper.GetUniqueFolderName()
 			};
-			goFileHelper.UploadFiles(header);
+			await goFileHelper.UploadFiles(header);
 			await connection.Create(header);
 		}
 

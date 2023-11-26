@@ -11,7 +11,7 @@ namespace GoFile.Client.Services
 			this.wrapper = wrapper;
 		}
 
-		public void UploadFiles(UploadHeader header, UploadLine[] lines = null, Action<UploadHeader, UploadLine> statusUpdateAction = null)
+		public async Task UploadFiles(UploadHeader header, UploadLine[] lines = null, Action<UploadHeader, UploadLine> statusUpdateAction = null)
 		{
 			if (header is null)
 			{
@@ -20,7 +20,12 @@ namespace GoFile.Client.Services
 
 			if (string.IsNullOrWhiteSpace(header.Token))
 			{
-				header.Token = wrapper.CreateAccount();
+				var token = await wrapper.CreateAccount();
+				if (string.IsNullOrWhiteSpace(token))
+				{
+					return;
+				}
+				header.Token = token;
 			}
 
 			if (string.IsNullOrWhiteSpace(header.CloudRootFolder))
