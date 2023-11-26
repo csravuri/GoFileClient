@@ -1,4 +1,6 @@
-﻿using GoFile.Client.ViewModels;
+﻿using GoFile.Client.Database;
+using GoFile.Client.Services;
+using GoFile.Client.ViewModels;
 using GoFile.Client.Views;
 using Microsoft.Extensions.Logging;
 
@@ -16,6 +18,10 @@ namespace GoFile.Client
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				});
+
+			builder.Services.AddSingleton(typeof(DbConnection));
+			builder.Services.AddSingleton(typeof(GoFileHelper));
+			builder.Services.AddSingleton(typeof(GoFileWrapper));
 
 			builder.Services.AddSingleton(typeof(HomePage));
 			builder.Services.AddSingleton(typeof(HomeViewModel));
