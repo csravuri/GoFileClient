@@ -5,6 +5,7 @@ using GoFile.Client.Database;
 using GoFile.Client.Models;
 using GoFile.Client.Services;
 using GoFile.Client.Utils;
+using GoFile.Client.Views;
 
 namespace GoFile.Client.ViewModels
 {
@@ -43,6 +44,7 @@ namespace GoFile.Client.ViewModels
 			};
 			await goFileHelper.UploadFiles(header);
 			await connection.Create(header);
+			await Shell.Current.GoToAsync(nameof(UploadFilesPage));
 		}
 
 		[RelayCommand]

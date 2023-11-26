@@ -26,6 +26,9 @@ namespace GoFile.Client
 			builder.Services.AddSingleton(typeof(HomePage));
 			builder.Services.AddSingleton(typeof(HomeViewModel));
 
+			builder.Services.AddTransient(typeof(UploadFilesPage));
+			builder.Services.AddTransient(typeof(UploadFilesViewModel));
+
 #if DEBUG
 			builder.Logging.AddDebug();
 #endif
